@@ -1,0 +1,25 @@
+{% extends 'women/base.html' %}
+
+{% block content %}
+
+<ul class="list-articles">
+    {% for el in posts %}
+    <li>
+        <div class="article-panel">
+            <p class="first">Категория: {{ el.cat }}</p>
+            <p class="last">{{ el.time_update | date:'d-m-Y H:i:s' }}</p>
+        </div>
+        {% if el.photo %}
+        <p><img class="img-article-left thumb" src="{{ el.photo.url }}" alt=""></p>
+        {% endif %}
+        <h2>{{ el.title }}</h2>
+        {% autoescape off %}
+        <p>{{ el.content| linebreaks | truncatewords:50 }}</p>
+        {% endautoescape %}
+        <div class="clear"></div>
+        <p class="link-read-post"><a href="{{ el.get_absolute_url }}">Читать пост</a></p>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
